@@ -70,7 +70,7 @@
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<div class="contact-number">
 					<i class="tf-ion-ios-telephone"></i>
-					<span>0129- 12323-123123</span>
+					<span>+216 24012325</span>
 				</div>
 			</div>
 			<div class="col-md-4 col-xs-12 col-sm-4">
@@ -84,7 +84,8 @@
 								font-family="AustinBold, Austin" font-weight="bold">
 								<g id="Group" transform="translate(-108.000000, -297.000000)" fill="#000000">
 									<text id="AVIATO">
-										<tspan x="108.94" y="325">Dabchy</tspan>
+										<tspan x="108.94" y="321">Dabchy</tspan>
+										
 									</text>
 								</g>
 							</g>
@@ -95,33 +96,14 @@
 			<div class="col-md-4 col-xs-12 col-sm-4">
 				<!-- Cart -->
 				<ul class="top-menu text-right list-inline">
-					<li class="dropdown cart-nav dropdown-slide">
-						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
-								class="tf-ion-android-cart"></i>Cart</a>
-						
-
-						
-
-					</li><!-- / Cart -->
+					
    <!-- Your navbar content here -->
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-		 <li class="dropdown cart-nav dropdown-slide">
-            <a href="{{ path('app_logout') }}" class="dropdown-toggle" ><i
-								class="tf-ion-android-cart"></i>Logout</a>
-								</li>
-        {% else %}
-		<li class="dropdown cart-nav dropdown-slide">
-            <a href="{{ path('app_login') }}" class="dropdown-toggle" ><i
-								class="tf-ion-android-cart"></i>Login</a>
-								</li>
-        {% endif %}
-    </nav>
-
+    
 
 
 					<!-- Search -->
 					<li class="dropdown search dropdown-slide">
-						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
+						<a href="#!"  data-toggle="dropdown" data-hover="dropdown"><i
 								class="tf-ion-ios-search-strong"></i> Search</a>
 						<ul class="dropdown-menu search-dropdown">
 							<li>
@@ -130,13 +112,34 @@
 						</ul>
 					</li><!-- / Search -->
 
-					<!-- Languages -->
-					<li class="commonSelect">
+<li class="dropdown cart-nav dropdown-slide">
+						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
+								class="tf-ion-android-cart"></i></a>
+						
+
+									</li><!-- / Cart -->
+					    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+		   <li class="dropdown cart-nav dropdown-slide">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            {{ app.user.nom }} <!-- Affiche le nom d'utilisateur -->
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="{{path('app_user_edit_profile')}}">Profile</a></li> <!-- Lien vers la page de profil -->
+            <li><a href="{{ path('app_logout') }}">Logout</a></li> <!-- Lien pour se déconnecter -->
+        </ul>
+    </li>
+        {% else %}
+		<li class="dropdown cart-nav dropdown-slide">
+            <a href="{{ path('app_login') }}" >Login</a>
+								</li>
+        {% endif %}
+    </nav>
+
+
+					<!-- Languages -->					<li class="commonSelect">
 						<select class="form-control">
 							<option>EN</option>
-							<option>DE</option>
-							<option>FR</option>
-							<option>ES</option>
+						
 						</select>
 					</li><!-- / Languages -->
 

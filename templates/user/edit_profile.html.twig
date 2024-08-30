@@ -1,0 +1,275 @@
+
+ {% block stylesheets %}
+ <style>
+ 
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid transparent;
+    border-radius: .25rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%);
+}
+.me-2 {
+    margin-right: .5rem!important;
+
+}
+</style>
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+           <link rel="stylesheet" href="css/style.css">
+           <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
+
+  
+  <!-- Themefisher Icon font -->
+  <link rel="stylesheet" href="{{ asset('plugins/themefisher-font/style.css') }}">
+
+  
+  <!-- Animate css -->
+  <link rel="stylesheet" href="{{ asset('plugins/animate/animate.css') }}">
+ 
+
+
+  <!-- bootstrap.min css -->
+<link rel="stylesheet" href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}">
+
+<!-- Slick Carousel -->
+<link rel="stylesheet" href="{{ asset('plugins/slick/slick.css') }}">
+<link rel="stylesheet" href="{{ asset('plugins/slick/slick-theme.css') }}">
+
+     {% endblock %}
+
+
+
+        {% block javascripts %}
+    <!-- Main jQuery -->
+    <script src="{{ ('plugins/jquery/dist/jquery.min.js') }}"></script>
+    <!-- Bootstrap 3.1 -->
+    <script src="{{asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+    <!-- Bootstrap Touchpin -->
+    <script src="{{ ('plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js') }}"></script>
+    <!-- Instagram Feed Js -->
+    <script src="{{('plugins/instafeed/instafeed.min.js') }}"></script>
+    <!-- Video Lightbox Plugin -->
+    <script src="{{ ('plugins/ekko-lightbox/dist/ekko-lightbox.min.js') }}"></script>
+    <!-- Count Down Js -->
+    <script src="{{('plugins/syo-timer/build/jquery.syotimer.min.js') }}"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+
+
+ 
+
+    <!-- slick Carousel -->
+    <script src="{{asset ('plugins/slick/slick.min.js') }}"></script>
+    <script src="{{asset ('plugins/slick/slick-animation.min.js') }}"></script>
+
+    <!-- Google Map -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
+    <script src="{{ ('plugins/google-map/gmap.js') }}"></script>
+	
+
+    <!-- Main Js File -->
+    <script src="{{asset('js/script.js') }}"></script>
+{% endblock %}
+
+
+
+
+
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block body %}
+<section class="top-header">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-xs-12 col-sm-4">
+				<div class="contact-number">
+					<i class="tf-ion-ios-telephone"></i>
+					<span>+216 24012325</span>
+				</div>
+			</div>
+			<div class="col-md-4 col-xs-12 col-sm-4">
+				<!-- Site Logo -->
+				<div class="logo text-center">
+					<a href="index.html">
+						<!-- replace logo here -->
+						<svg width="135px" height="29px" viewBox="0 0 155 29" version="1.1" xmlns="http://www.w3.org/2000/svg"
+							xmlns:xlink="http://www.w3.org/1999/xlink">
+							<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-size="40"
+								font-family="AustinBold, Austin" font-weight="bold">
+								<g id="Group" transform="translate(-108.000000, -297.000000)" fill="#000000">
+									<text id="AVIATO">
+										<tspan x="108.94" y="321">Dabchy</tspan>
+										
+									</text>
+								</g>
+							</g>
+						</svg>
+					</a>
+				</div>
+			</div>
+			<div class="col-md-4 col-xs-12 col-sm-4">
+				<!-- Cart -->
+				<ul class="top-menu text-right list-inline">
+					
+   <!-- Your navbar content here -->
+    
+
+
+					<!-- Search -->
+					<li class="dropdown search dropdown-slide">
+						<a href="#!"  data-toggle="dropdown" data-hover="dropdown"><i
+								class="tf-ion-ios-search-strong"></i> Search</a>
+						<ul class="dropdown-menu search-dropdown">
+							<li>
+								<form action="post"><input type="search" class="form-control" placeholder="Search..."></form>
+							</li>
+						</ul>
+					</li><!-- / Search -->
+
+<li class="dropdown cart-nav dropdown-slide">
+						<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
+								class="tf-ion-android-cart"></i></a>
+						
+
+									</li><!-- / Cart -->
+					    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+		   <li class="dropdown cart-nav dropdown-slide">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            {{ app.user.nom }} <!-- Affiche le nom d'utilisateur -->
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="{{path('app_user_edit_profile')}}">Profile</a></li> <!-- Lien vers la page de profil -->
+            <li><a href="{{ path('app_logout') }}">Logout</a></li> <!-- Lien pour se déconnecter -->
+        </ul>
+    </li>
+        {% else %}
+		<li class="dropdown cart-nav dropdown-slide">
+            <a href="{{ path('app_login') }}" >Login</a>
+								</li>
+        {% endif %}
+    </nav>
+
+
+					<!-- Languages -->					<li class="commonSelect">
+						<select class="form-control">
+							<option>EN</option>
+						
+						</select>
+					</li><!-- / Languages -->
+
+				</ul><!-- / .nav .navbar-nav .navbar-right -->
+			</div>
+		</div>
+	</div>
+</section>
+<div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="{{ asset('uploads/images/avatar.png') }}" alt="Profile Image" class="rounded-circle p-1 bg-primary" width="110">
+                            <div class="mt-3">
+                                <h4>{{ app.user.nom }}</h4>
+                              
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0">Email</h6>
+                                <span class="text-secondary">{{ app.user.email }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0">Phone</h6>
+                                <span class="text-secondary">{{ app.user.contact }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0">Address</h6>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Full Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Phone</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ form_widget(form.contact, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Address</h6>
+                                </div>
+ {% for adresse in app.user.adresses %}
+                                    <p>{{ adresse }}</p>
+                                    {% endfor %}
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Current Password</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                                                    {{ form_widget(form.old_password, {'attr': {'class': 'form-control'}}) }}
+
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">New Password</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ form_widget(form.new_password, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Confirm Password</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ form_widget(form.confirm_password, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="submit" class="btn btn-primary px-4" value="Save Changes">
+                                </div>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

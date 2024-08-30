@@ -18,4 +18,6 @@ class HomeController extends AbstractController
                 'produits' => $produits,
         ]);
     }
+
+    
 }

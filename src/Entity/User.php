@@ -23,28 +23,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
+
     #[ORM\Column(length: 255)]
     private ?string $contact = null;
+
     #[ORM\OneToMany(targetEntity: Produit::class, mappedBy: 'fournisseur')]
     private Collection $produits;
 
-    public function __construct()
-    {
-        $this->produits = new ArrayCollection();
-    }
-
-
-    /**
-     * @var list<string> The user roles
-     */
     #[ORM\Column]
     private array $roles = ['ROLE_USER'];
 
-    /**
-     * @var string The hashed password
-     */
     #[ORM\Column]
     private ?string $password = null;
+
+    private ?string $oldPassword = null;
+    private ?string $newPassword = null;
+    private ?string $confirmPassword = null;
+
+    #[ORM\OneToMany(targetEntity: Adresse::class, mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private Collection $adresses;
+
+    public function __construct()
+    {
+        $this->adresses = new ArrayCollection();
+        $this->produits = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -59,7 +62,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -71,7 +73,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
-
         return $this;
     }
 
@@ -83,46 +84,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setContact(string $contact): static
     {
         $this->contact = $contact;
-
         return $this;
     }
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUserIdentifier(): string
-    {
-        return (string) $this->email;
-    }
 
-    /**
-     * @see UserInterface
-     *
-     * @return list<string>
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
-
         return array_unique($roles);
     }
 
-    /**
-     * @param list<string> $roles
-     */
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
-
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
     public function getPassword(): string
     {
         return $this->password;
@@ -131,16 +108,73 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
+    public function getOldPassword(): ?string
+    {
+        return $this->oldPassword;
+    }
+
+    public function setOldPassword(?string $oldPassword): static
+    {
+        $this->oldPassword = $oldPassword;
+        return $this;
+    }
+
+    public function getNewPassword(): ?string
+    {
+        return $this->newPassword;
+    }
+
+    public function setNewPassword(?string $newPassword): static
+    {
+        $this->newPassword = $newPassword;
+        return $this;
+    }
+
+    public function getConfirmPassword(): ?string
+    {
+        return $this->confirmPassword;
+    }
+
+    public function setConfirmPassword(?string $confirmPassword): static
+    {
+        $this->confirmPassword = $confirmPassword;
+        return $this;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        // Clear any temporary data
+    }
+
+    public function getAdresses(): Collection
+    {
+        return $this->adresses;
+    }
+
+    public function addAdresse(Adresse $adresse): self
+    {
+        if (!$this->adresses->contains($adresse)) {
+            $this->adresses[] = $adresse;
+            $adresse->setUser($this);
+        }
+        return $this;
+    }
+
+    public function removeAdresse(Adresse $adresse): self
+    {
+        if ($this->adresses->removeElement($adresse)) {
+            if ($adresse->getUser() === $this) {
+                $adresse->setUser(null);
+            }
+        }
+        return $this;
     }
 }

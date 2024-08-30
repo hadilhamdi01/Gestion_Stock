@@ -88,13 +88,14 @@
                         <li>
                             <a href="#!"><i class="tf-ion-ios-heart"></i></a>
                         </li>
-                        <li>
-                          
-                            <form action="{{ path('passer_commande', {'id': produit.id}) }}" method="post">
-                                <button type="submit" class="tf-ion-android-cart"></button>
-                            </form>
-                        </li>
-                    </ul>
+                       <li>
+    <a href="#" onclick="document.getElementById('cart-form-{{ produit.id }}').submit();">
+        <i class="tf-ion-android-cart"></i>
+    </a>
+    <form id="cart-form-{{ produit.id }}" action="{{ path('passer_commande', {'id': produit.id}) }}" method="post" style="display: none;">
+	
+    </form>
+</li>          </ul>
                 </div>
             </div>
             <div class="product-content">
@@ -102,6 +103,10 @@
                 <p class="price">{{ produit.prix }} €</p>
             </div>
         </div>
+<form action="{{ path('passer_commande', {'id': produit.id}) }}" method="post">
+    <button type="submit">Passer la commande</button>
+</form>
+
     </div>
     {% endfor %}
 </div>

@@ -27,7 +27,8 @@ security:
 
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-      
+        - { path: ^/profile/edit, roles: ROLE_USER }
+
         - { path: ^/user, roles: ROLE_USER }
       
 
